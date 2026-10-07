@@ -1,59 +1,65 @@
-# ShoppingList
+# Laboratoire 3 · Liste de courses (Angular)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.38.
+SEG3502 A00 · Université d'Ottawa
 
-## Development server
+| Membre | Numéro étudiant | Rôle |
+|---|---|---|
+| Hjiyej Andaloussi Elghali | 300379897 | Logique : composants, `@Input` / `@Output` |
+| Brayan Adou | 300433616 | Interface : feuilles de style CSS, README, rapport |
 
-To start a local development server, run:
+## Description
 
-```bash
-ng serve
+Application Angular (standalone, Angular 20) qui gère une liste de courses :
+
+- un champ de texte et un bouton **Ajouter** pour ajouter un article ;
+- la liste des articles, chacun avec son bouton **Supprimer**.
+
+L'application compte trois composants :
+
+```
+App (garde le tableau items: string[])
+├── ItemInput   champ + bouton Ajouter      → @Output() addItem
+└── ItemList    articles + boutons Supprimer → @Input() items, @Output() removeItem
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- `ItemInput` émet le texte saisi vers `App` (un texte vide ou fait seulement d'espaces est ignoré, le champ est vidé après un ajout).
+- `App` ajoute l'article au tableau et le redonne à `ItemList` par `[items]`.
+- `ItemList` émet l'indice de l'article à retirer ; `App` retire seulement cet article.
 
-## Code scaffolding
+### Interface (CSS)
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+| Fichier | Contenu |
+|---|---|
+| `src/styles.css` | Variables de couleurs communes, police, fond de la page, contour de focus au clavier |
+| `src/app/app.css` | Carte principale encadrée et titre avec une icône de chariot |
+| `src/app/item-input/item-input.css` | Cadre du composant de saisie, champ arrondi, bouton gris « Ajouter » avec effet de touche enfoncée |
+| `src/app/item-list/item-list.css` | Cadre du composant liste, articles en barres bleues, boutons « Supprimer » (rouges au survol), message de liste vide, animation d'ajout |
 
-```bash
-ng generate component component-name
-```
+Chaque composant est entouré d'un cadre (`:host`) comme sur la maquette de l'énoncé, pour bien voir les deux composants. La mise en page s'adapte aux écrans de téléphone (le bouton Ajouter passe sous le champ).
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Installer et exécuter
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Prérequis : **Node.js 20.19 ou plus récent** (vérifier avec `node -v`) et Git. Angular CLI n'a pas besoin d'être installé globalement : `npx` utilise la version du projet.
 
 ```bash
-ng test
+git clone https://github.com/ralihji/LAB-3.git
+cd LAB-3/shopping-list
+npm install
+npx ng serve
 ```
 
-## Running end-to-end tests
+Ouvrir ensuite <http://localhost:4200/> dans un navigateur. Arrêter le serveur avec `Ctrl + C`.
 
-For end-to-end (e2e) testing, run:
+### Tests
 
 ```bash
-ng e2e
+npx ng test --watch=false
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### Compilation de production
 
-## Additional Resources
+```bash
+npx ng build
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Les fichiers compilés sont placés dans `dist/shopping-list/`.

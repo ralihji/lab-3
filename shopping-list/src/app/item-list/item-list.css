@@ -1,20 +1,124 @@
+/* ==========================================================
+   Composant ItemList : les articles et leurs boutons Supprimer
+   :host = la balise <app-item-list> elle-même (deuxième cadre).
+   ========================================================== */
+
+:host {
+  display: block;
+  padding: 16px;
+  border: 1.5px solid var(--cadre-clair);
+  border-radius: var(--rayon);
+  background: #f8fafc;
+}
+
 .item-list {
   list-style: none;
+  margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
+
+/* Une ligne = barre bleue (article) + bouton à droite */
 .item-list li {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 8px 0;
-  font-size: 16px;
+  gap: 14px;
+  animation: apparition 0.22s ease-out;
 }
+
+/* Barre bleue qui contient le nom de l'article */
+.item-list li span {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 16px;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--article-texte);
+  background: var(--article);
+  border: 1.5px solid var(--article-bord);
+  border-radius: 6px;
+  overflow-wrap: anywhere; /* un mot très long ne casse pas la mise en page */
+}
+
+/* Bouton Supprimer : même style gris que Ajouter */
 .item-list button {
-  width: 110px;
-  padding: 8px;
+  flex: none;
+  width: 130px;
+  height: 44px;
+  padding: 0;
   font-size: 16px;
+  font-weight: 700;
+  color: #111;
+  background: linear-gradient(var(--bouton-haut), var(--bouton));
+  border: 1.5px solid var(--bouton-bord);
+  border-radius: 12px;
+  box-shadow: 0 3px 0 var(--bouton-ombre);
   cursor: pointer;
+  transition: transform 0.08s, box-shadow 0.08s, background 0.15s, color 0.15s, border-color 0.15s;
 }
-.empty {
-  color: #777;
+
+/* Au survol, le bouton devient rouge pour signaler la suppression */
+.item-list button:hover {
+  color: var(--danger);
+  background: var(--danger-clair);
+  border-color: var(--danger);
+  box-shadow: 0 3px 0 #e0a59e;
+}
+
+.item-list button:active {
+  transform: translateY(3px);
+  box-shadow: 0 0 0 transparent;
+}
+
+/* Message quand la liste est vide */
+.item-list li.empty {
+  justify-content: center;
+  padding: 26px 12px;
+  font-size: 16px;
+  font-style: italic;
+  color: var(--texte-doux);
+  border: 1.5px dashed var(--cadre-clair);
+  border-radius: 8px;
+  animation: none;
+}
+
+/* Petite animation quand un article est ajouté */
+@keyframes apparition {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Écran étroit : bouton plus petit */
+@media (max-width: 560px) {
+  :host {
+    padding: 12px;
+  }
+
+  .item-list li {
+    gap: 8px;
+  }
+
+  .item-list li span {
+    font-size: 16px;
+  }
+
+  .item-list button {
+    width: 104px;
+    font-size: 14px;
+  }
+}
+
+/* Respecte le réglage « réduire les animations » du système */
+@media (prefers-reduced-motion: reduce) {
+  .item-list li {
+    animation: none;
+  }
 }

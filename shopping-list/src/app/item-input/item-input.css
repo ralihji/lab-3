@@ -1,16 +1,94 @@
+/* ==========================================================
+   Composant ItemInput : champ de texte + bouton Ajouter
+   :host = la balise <app-item-input> elle-même.
+   On l'encadre pour bien voir le composant, comme sur la maquette.
+   ========================================================== */
+
+:host {
+  display: block;
+  margin-bottom: 18px;
+  padding: 16px;
+  border: 1.5px solid var(--cadre-clair);
+  border-radius: var(--rayon);
+  background: #f8fafc;
+}
+
 .item-input {
   display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
+  align-items: center;
+  gap: 14px;
+  margin: 0;
 }
+
+/* Champ de texte arrondi */
 .item-input input {
   flex: 1;
-  padding: 8px;
-  font-size: 16px;
+  min-width: 0;
+  height: 50px;
+  padding: 0 18px;
+  font-size: 18px;
+  color: var(--texte);
+  background: #ffffff;
+  border: 1.5px solid var(--cadre);
+  border-radius: 12px;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
+
+.item-input input::placeholder {
+  color: #9aa5b1;
+}
+
+.item-input input:focus {
+  outline: none;
+  border-color: var(--article-bord);
+  box-shadow: 0 0 0 4px rgba(114, 159, 207, 0.30);
+}
+
+/* Bouton Ajouter : gris, arrondi, texte en gras */
 .item-input button {
-  width: 110px;
-  padding: 8px;
-  font-size: 16px;
+  flex: none;
+  width: 130px;
+  height: 50px;
+  padding: 0;
+  font-size: 19px;
+  font-weight: 700;
+  color: #111;
+  background: linear-gradient(var(--bouton-haut), var(--bouton));
+  border: 1.5px solid var(--bouton-bord);
+  border-radius: 12px;
+  box-shadow: 0 3px 0 var(--bouton-ombre);
   cursor: pointer;
+  transition: transform 0.08s, box-shadow 0.08s, background 0.15s;
+}
+
+.item-input button:hover {
+  background: linear-gradient(#eef0f3, #dadde2);
+}
+
+/* Effet « touche enfoncée » au clic */
+.item-input button:active {
+  transform: translateY(3px);
+  box-shadow: 0 0 0 var(--bouton-ombre);
+}
+
+/* Écran étroit : le bouton passe sous le champ */
+@media (max-width: 560px) {
+  :host {
+    padding: 12px;
+  }
+
+  .item-input {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  /* En colonne, flex: 1 écraserait la hauteur du champ */
+  .item-input input {
+    flex: none;
+  }
+
+  .item-input button {
+    width: 100%;
+  }
 }
