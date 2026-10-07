@@ -1,0 +1,9 @@
+.container {
+  max-width: 600px;
+  margin: 40px auto;
+  font-family: Arial, sans-serif;
+}
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}

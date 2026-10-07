@@ -1,0 +1,20 @@
+.item-list {
+  list-style: none;
+  padding: 0;
+}
+.item-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  font-size: 16px;
+}
+.item-list button {
+  width: 110px;
+  padding: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.empty {
+  color: #777;
+}
